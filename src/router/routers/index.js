@@ -10,7 +10,7 @@ export default [
     ...bimbingan_prakuliah,
     ranking,
     submisi,
-    ...transaksi,
+    transaksi,
     ...tryout,
     users,
     ...webinar

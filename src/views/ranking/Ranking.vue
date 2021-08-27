@@ -59,7 +59,7 @@ import Breadcrumb from '../../components/Breadcrumb.vue'
 import db from '../../firebase/db'
 
 export default {
-    name: "Submisi",
+    name: "Ranking",
     components: { Breadcrumb },
     data() {
         return {

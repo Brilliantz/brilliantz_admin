@@ -73,7 +73,7 @@ export default {
         items: [
         { title: 'Daftar Peserta', icon: 'mdi-collage', link: '/users', hasChild: false },
         { title: 'Daftar Program', icon: 'mdi-clipboard-text', link: '/tests', hasChild: true },
-        { title: 'Daftar Transaksi', icon: 'mdi-script-text', link: '/tests', hasChild: false },
+        { title: 'Daftar Transaksi', icon: 'mdi-script-text', link: '/transaksi', hasChild: false },
         { title: 'Submisi', icon: 'mdi-page-previous-outline', link: '/submisi', hasChild: false },
         { title: 'Ranking', icon: 'mdi-podium', link: '/ranking', hasChild: false },
         ],
