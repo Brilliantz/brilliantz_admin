@@ -86,7 +86,7 @@
       </v-row>
         <v-dialog
         v-model="isShow"
-        max-width="500"
+        max-width="550"
       >
         <v-card>
           <v-card-title class="headline mb-3">
@@ -123,10 +123,12 @@ import { mapActions, mapGetters } from 'vuex';
 import Breadcrumb from '../../components/Breadcrumb.vue'
 import db from '../../firebase/db'
 import firebase from "firebase/app";
+import DateAndCurrency from "../../mixins/DateAndCurrency";
 
 export default {
     name: "Transaksi",
     components: { Breadcrumb },
+    mixins: [DateAndCurrency],
     data() {
         return {
             items: [
@@ -153,25 +155,12 @@ export default {
         onChange(){
             this.init(this.program);
         },
-        formatDate(d) {
-          const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"]
-          const dd = d.getDate()
-          const MM = months[d.getMonth()]
-          const yy = d.getFullYear()
-          const hh = d.getHours()
-          const mm = d.getMinutes()
-          const ss = d.getSeconds()
-          return `${dd} ${MM} ${yy} ${hh}:${mm}:${ss}`
-        },
-        formatCurrency(x) {
-            return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
-        },
         showImage(item) {
             console.log(item);
             this.isShow = true;
             this.bukti_url = item.bukti_pembayaran
-            this.created_at = `Waktu Transaksi: ${this.formatDate(new Date(item.created_at.seconds * 1000))}`
-            this.updated_at = `Waktu Verifikasi/Ditolak: ${this.formatDate(new Date(item.updated_at.seconds * 1000))}`
+            this.created_at = `Waktu Transaksi: ${this.formatDate(item.created_at)}`
+            this.updated_at = `Waktu Verifikasi/Ditolak: ${this.formatDate(item.updated_at)}`
         },
         verifikasi(item) {
             db.collection("transaksi").doc(item.id).update({

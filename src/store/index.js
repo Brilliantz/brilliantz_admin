@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 import { vuexfireMutations } from 'vuexfire';
 
+import tryout from './tryout'
 import transaksi from './transaksi'
 import submisi from './submisi'
 import ranking from './ranking'
@@ -20,7 +21,7 @@ export default new Vuex.Store({
     mutations: vuexfireMutations,
     plugins: [createPersistedState()],
     modules: {
-        // admin,
+        tryout,
         transaksi,
         submisi,
         ranking,

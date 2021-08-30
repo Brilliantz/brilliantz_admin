@@ -27,6 +27,11 @@ export default {
     color: white !important;
   }
 
+  .my-purple-text {
+    background-color: white !important;
+    color: #4a47d6 !important;
+  }
+
   .my-grey {
   background-color: #F2F2F2 !important;
  }

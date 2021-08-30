@@ -11,7 +11,7 @@ export default [
     ranking,
     submisi,
     transaksi,
-    ...tryout,
+    tryout,
     users,
     ...webinar
 ]
