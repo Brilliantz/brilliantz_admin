@@ -21,7 +21,7 @@ const getters = {
 
 const actions = {
     init: firestoreAction(({ bindFirestoreRef }, programId) => {
-        bindFirestoreRef('transaksiData', db.collection('transaksi').where('program_id', '==', programId));
+        bindFirestoreRef('transaksiData', db.collection('transaksi').where('program_id', '==', programId).orderBy('created_at', 'desc'));
     })
 }
 

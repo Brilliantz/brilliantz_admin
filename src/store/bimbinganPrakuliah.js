@@ -3,25 +3,25 @@ import db from '@/firebase/db';
 
 function state() {
     return {
-        usersData: [],
+        bimbinganData: [],
     }
 }
 
 const mutations = {
-    resetUsersState(state) {
-        state.usersData = [];
+    resetBimbingaState(state) {
+        state.bimbinganData = [];
     }
 }
 
 const getters = {
-    getUsersData(state) {
-        return state.usersData;
+    getBimbinganData(state) {
+        return state.bimbinganData;
     }
 }
 
 const actions = {
     init: firestoreAction(({ bindFirestoreRef }) => {
-        bindFirestoreRef('usersData', db.collection('users').orderBy('nama_lengkap'));
+        bindFirestoreRef('bimbinganData', db.collection('bimbingan_prakuliah').orderBy('waktu_mulai', 'desc'));
     })
 }
 

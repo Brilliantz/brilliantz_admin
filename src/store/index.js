@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 import { vuexfireMutations } from 'vuexfire';
 
+import webinar from './webinar'
+import bimbinganPrakuliah from './bimbinganPrakuliah'
 import tryout from './tryout'
 import transaksi from './transaksi'
 import submisi from './submisi'
@@ -21,6 +23,8 @@ export default new Vuex.Store({
     mutations: vuexfireMutations,
     plugins: [createPersistedState()],
     modules: {
+        bimbinganPrakuliah,
+        webinar,
         tryout,
         transaksi,
         submisi,

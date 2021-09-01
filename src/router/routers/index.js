@@ -7,11 +7,11 @@ import users from "./users"
 import webinar from "./webinar"
 
 export default [
-    ...bimbingan_prakuliah,
+    bimbingan_prakuliah,
     ranking,
     submisi,
     transaksi,
     tryout,
     users,
-    ...webinar
+    webinar
 ]
