@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import modules from './modules'
 import createPersistedState from 'vuex-persistedstate'
 import createLogger from 'vuex/dist/logger'
+import { vuexfireMutations } from "vuexfire";
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -29,18 +30,12 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    ...vuexfireMutations,
     setRoutesConfig(state, routesConfig) {
       state.routesConfig = routesConfig
     },
   },
   actions: {
-    // Fetching Route
-    onFetchRoutesConfig({ commit, dispatch }) {
-      const promise =  Vue.axios.get('api/api-route-list')
-      promise.then(res => commit('setRoutesConfig', res.data))
-        .catch(e => dispatch('onNotificationError', e, {root: true}))
-      return promise
-    },
     // Global Notification
     onNotificationError({commit}, error) {
       if (error?.response?.statusText) {

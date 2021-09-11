@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import PageToggleTransition from '../components/transition/PageToggleTransition';
+import PageToggleTransition from '../../components/transition/PageToggleTransition';
 
 export default {
   name: 'BlankView',

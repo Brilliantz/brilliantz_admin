@@ -141,7 +141,7 @@
 </script>
 
 <style lang="sass">
-  @import '~vuetify/src/styles/tools/_rtl.sass'
+  @import '../../../../node_modules/vuetify/src/styles/tools/rtl'
 
   .class--inherit
     color: rgba(0, 0, 0, 0.54) !important

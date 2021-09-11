@@ -2,7 +2,9 @@
   <v-app>
     <loading-global></loading-global>
     <snackbar-notif></snackbar-notif>
-    <router-view />
+    <v-main class="my-grey">
+      <router-view />
+    </v-main>
     <vue-snotify></vue-snotify>
   </v-app>
 </template>
@@ -14,18 +16,29 @@
   export default {
     name: 'App',
     components: {SnackbarNotif, LoadingGlobal},
-    mounted() {
-      this.$store.dispatch('onFetchRoutesConfig')
-    },
-    /**watch: {
-      $route: {
-        handler() {
-          if (this.$store.getters['auth/authenticated']
-            && (Object.prototype.hasOwnProperty.call(this.$route.meta, 'auth') ? this.$route.meta.auth : true))
-            this.$store.dispatch('account/fetchPermission')
-        },
-        immediate: true
-      }
-    }**/
   }
 </script>
+
+<style>
+.my-breadcrumb a {
+  color: #4a47d6 !important;
+}
+
+.my-purple {
+  background-color: #4a47d6 !important;
+  color: white !important;
+}
+
+.my-purple-text {
+  background-color: white !important;
+  color: #4a47d6 !important;
+}
+
+.my-grey {
+  background-color: #F2F2F2 !important;
+}
+
+.maximize-width {
+  width: 100% !important;
+}
+</style>

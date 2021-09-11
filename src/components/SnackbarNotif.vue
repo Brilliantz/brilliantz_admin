@@ -18,7 +18,7 @@ import {mapState} from "vuex";
 export default {
   name: "SnackbarNotif",
   computed: {
-    ...mapState('notification', ['snackbar'])
+    ...mapState('snackbarNotification', ['snackbar'])
   }
 }
 </script>

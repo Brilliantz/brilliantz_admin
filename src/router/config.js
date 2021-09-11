@@ -2,9 +2,10 @@ import routes from './routes/index'
 
 const options = {
   mode: 'history',
-  base:  process.env.NODE_ENV === 'production'
-      ? '/project/brilliantz/'
-      : '/',
+  // base:  process.env.NODE_ENV === 'production'
+  //     ? '/project/brilliantz/'
+  //     : '/',
+  base: process.env.BASE_URL,
   routes: [
     {
       path: '403',
@@ -31,27 +32,15 @@ const options = {
       component: () => import('@/views/exception/404')
     },
     {
-      path: '/',
-      redirect: { name: 'dashboard'},
-      meta: { auth: false}
+      path: 'login',
+      name: 'Login',
+      component: () => import('../views/Auth/Login')
     },
     {
-      path: '/admin',
-      component: () => import('@/layouts/AdminLayout'),
-      meta: { auth: false },
-      redirect: {name: 'dashboard'},
-      children: [
-        {
-          path: 'dashboard',
-          name: 'dashboard',
-          meta: {
-            icon: 'dashboard',
-          },
-          component: () => import('@/views/dashboard/Dashboard'),
-        },
-        ...routes
-      ],
+      path: '/',
+      redirect: '/users'
     },
+    ...routes
   ],
 }
 

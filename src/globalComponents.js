@@ -1,6 +1,5 @@
-import Fullscreen from './layouts/Fullscreen.vue';
+import Fullscreen from './layouts/base_layout/Fullscreen.vue';
 import Snotify, {SnotifyPosition} from 'vue-snotify';
-import HighChartVue from 'highcharts-vue';
 import Plugins from "@/plugins";
 import './plugins/base'
 
@@ -21,7 +20,6 @@ const globalComponent = {
     Vue.use(Snotify, snotifyOption);
     // Vue.use(abilitiesPlugin, store.getters['account/ability'])
     Vue.component('fullscreen-layout', Fullscreen);
-    Vue.use(HighChartVue)
   }
 }
 
