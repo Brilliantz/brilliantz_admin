@@ -1,5 +1,5 @@
 {
-  "name": "pencov19",
+  "name": "brilliantz_admin_sec",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,8 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "highcharts": "^9.1.2",
-    "highcharts-vue": "^1.4.0",
+    "firebase": "^8.10.0",
     "i": "^0.3.6",
     "npm": "^7.6.2",
     "nprogress": "^0.2.0",
@@ -19,7 +18,9 @@
     "vue-i18n": "^8.22.4",
     "vue-router": "^3.5.1",
     "vuetify": "^2.4.0",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.0.0",
+    "vuexfire": "^3.2.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -36,7 +37,6 @@
     "vue-snotify": "^3.2.1",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0",
-    "vuex-persistedstate": "^4.0.0-beta.3",
     "ziggy-js": "^1.0.5"
   },
   "eslintConfig": {

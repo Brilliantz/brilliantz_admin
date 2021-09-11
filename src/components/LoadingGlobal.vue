@@ -25,15 +25,14 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
 
 export default {
   name: "LoadingGlobal",
   computed: {
-    ...mapState('auth', ['status']),
     loadingDialog() {
-      return this.status !== 'idle'
+      return false
     }
+    //TODO::bisa di custom
   }
 }
 </script>

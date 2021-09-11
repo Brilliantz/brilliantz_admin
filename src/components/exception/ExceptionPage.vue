@@ -7,7 +7,7 @@
       <h1>{{config[type].title}}</h1>
       <div class="desc">{{config[type].desc}}</div>
       <div class="action">
-        <v-btn type="primary" @click="backHome">Back to Login Page</v-btn>
+        <v-btn type="primary" @click="backHome">Back to Home</v-btn>
       </div>
     </div>
   </div>
