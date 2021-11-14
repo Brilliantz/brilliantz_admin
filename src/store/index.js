@@ -15,20 +15,6 @@ const store = new Vuex.Store({
     ...(process.env.NODE_ENV !== 'production') ? [createLogger()] : []
   ],
   modules,
-  getters :{
-    routesConfig: state => {
-      if (!state.routesConfig) {
-        try {
-          const routesConfig = localStorage.getItem(process.env.VUE_APP_ROUTES_KEY)
-          state.routesConfig = JSON.parse(routesConfig)
-          state.routesConfig = state.routesConfig ? state.routesConfig : {}
-        } catch (e) {
-          console.error(e.message)
-        }
-      }
-      return state.routesConfig
-    }
-  },
   mutations: {
     ...vuexfireMutations,
     setRoutesConfig(state, routesConfig) {
@@ -39,7 +25,7 @@ const store = new Vuex.Store({
     // Global Notification
     onNotificationError({commit}, error) {
       if (error?.response?.statusText) {
-        commit('notification/setSnackbar', {
+        commit('snackbarNotification/setSnackbar', {
           message: error.response.data.message,
           status: "danger",
           drawer: true
@@ -47,7 +33,7 @@ const store = new Vuex.Store({
       }
     },
     onNotificationSuccess({commit}, description) {
-      commit('notification/setSnackbar', {
+      commit('snackbarNotification/setSnackbar', {
         message: description,
         status: "success",
         drawer: true

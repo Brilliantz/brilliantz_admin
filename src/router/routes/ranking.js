@@ -1,10 +1,10 @@
 export default {
-  path: 'rangking',
+  path: 'ranking',
   component: () => import('@/layouts/admin/AdminLayout'),
   children: [
     {
       path: '/',
-      name: 'Rangking',
+      name: 'Ranking',
       component: () => import('../../views/ranking/Ranking')
     }
   ]
