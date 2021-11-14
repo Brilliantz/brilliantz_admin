@@ -20,5 +20,8 @@ npm run build
 npm run lint
 ```
 
+### IF YOU WANT TO RUN NGROK
+ngrok http 8081 -host-header="localhost:8081"
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
