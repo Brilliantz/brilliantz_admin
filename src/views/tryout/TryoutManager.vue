@@ -45,14 +45,14 @@
                   type="number"
                 ></v-text-field>
 
-                <DateTimePicker 
+                <DateTimePicker
                     :date.sync="dateStart"
                     :time.sync="timeStart"
                     date-label="Tanggal Mulai"
                     time-label="Waktu Mulai"
                 />
 
-                <DateTimePicker 
+                <DateTimePicker
                     :date.sync="dateEnd"
                     :time.sync="timeEnd"
                     date-label="Tanggal Berakhir"
@@ -61,10 +61,10 @@
 
                 <template v-if="is_edit">
                   <p class="text-grey font-weight-bold">Edit Soal Tes Pengetahuan Skolastika</p>
-                  <v-btn 
+                  <v-btn
                     v-for="(value, index) in tps_button"
                     :key="index"
-                    large 
+                    large
                     depressed
                     block
                     outlined
@@ -79,10 +79,10 @@
                   </v-btn>
 
                   <p class="text-grey font-weight-bold mt-5">Edit Soal Tes Kemampuan Akademik</p>
-                  <v-btn 
+                  <v-btn
                     v-for="(value, index) in tka_button"
                     :key="index + 4"
-                    large 
+                    large
                     depressed
                     block
                     outlined
@@ -98,8 +98,8 @@
 
                   <v-row no-gutters>
                     <v-col cols="6">
-                      <v-btn 
-                        large 
+                      <v-btn
+                        large
                         outlined
                         block
                         color="#4a47d6"
@@ -109,8 +109,8 @@
                       </v-btn>
                     </v-col>
                     <v-col cols="6">
-                      <v-btn 
-                        large 
+                      <v-btn
+                        large
                         outlined
                         block
                         color="#4a47d6"
@@ -122,16 +122,16 @@
                   </v-row>
                 </template>
 
-                <v-btn 
-                  large 
+                <v-btn
+                  large
                   depressed
                   block
                   @click.prevent="is_edit ? editTryout() : addTryout()"
                   class="my-purple text-none mt-5">
                   {{ button_text }}
                 </v-btn>
-                <v-btn 
-                  large 
+                <v-btn
+                  large
                   depressed
                   block
                   outlined
@@ -141,8 +141,8 @@
                 </v-btn>
                 <v-row v-if="is_edit" no-gutters class="mt-5">
                   <v-col cols="3">
-                     <v-btn 
-                      large 
+                     <v-btn
+                      large
                       depressed
                       outlined
                       color="red"
@@ -189,7 +189,7 @@ export default {
             "Penalaran Umum",
             "Pengetahuan Bacaan Menulis",
             "Pengetahuan dan Pemahaman Umum",
-            "Kuantitatif" 
+            "Kuantitatif"
         ],
         poster_tryout: 'https://firebasestorage.googleapis.com/v0/b/brilliantz-edu.appspot.com/o/default%2Fdefault_tryout_poster.png?alt=media&token=a058f7e4-78a8-48f2-a98b-9a5d6ab09196',
         tka_button: [],
@@ -212,7 +212,7 @@ export default {
         const path = this.$route.path.split("/")
         if (path.includes("edit")) {
           this.is_edit = true
-        } 
+        }
         return path
       },
       populateData(data) {
@@ -284,10 +284,10 @@ export default {
         console.log('edit');
       },
       editSubbidang(subbidang) {
-          this.$router.push({ path: `/tryout/edit/${this.id}/${this.formatUrl(subbidang)}/1` })
+          this.$router.push({ path: `/tryout/edit/${this.id}/${this.formatUrl(subbidang)}/2` })
       },
       formatUrl(text) {
-          return text.toLowerCase().replaceAll(" ", "-")
+          return text.toLowerCase().replaceAll(" ", "_")
       },
       async doWork() {
         const path = this.checkIfEdit()
@@ -322,7 +322,7 @@ export default {
           // button
           this.button_text = 'Tambahkan Tryout'
         }
-      } 
+      }
     },
     watch: {
       $route (){

@@ -17,9 +17,9 @@
         </v-col>
         <v-spacer></v-spacer>
         <v-col cols="2" class="mr-8">
-          <v-btn 
-            large 
-            depressed 
+          <v-btn
+            large
+            depressed
             to="/tryout/add"
             class="my-purple text-none">
             <v-icon left>
@@ -46,9 +46,9 @@
             <p class="my-auto">{{ formatCurrency(item.harga) }}</p>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <v-btn 
-              outlined 
-              depressed 
+            <v-btn
+              outlined
+              depressed
               color="grey"
               class="text-none"
               @click="showDetail(item)">
@@ -67,11 +67,11 @@
           </v-card-title>
 
           <v-card-text>
-              <p class="font-weight-bold text-display-1 ml-n1"> 
+              <p class="font-weight-bold text-display-1 ml-n1">
                     <v-icon color="#4a47d6">
                         mdi-calendar-blank
                     </v-icon>
-                    {{ formatDate(waktu_mulai) }} - {{ formatDate(waktu_akhir) }} 
+                    {{ formatDate(waktu_mulai) }} - {{ formatDate(waktu_akhir) }}
              </p>
 
               <p class="font-weight-bold ml-n1 my-purple-text">Link Tryout</p>
