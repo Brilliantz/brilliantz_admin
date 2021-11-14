@@ -1,5 +1,5 @@
 <template>
-  <div> 
+  <div>
     <v-navigation-drawer app permanent class="nav-drawer">
         <v-img
             class="mt-5 mx-auto"
@@ -11,10 +11,10 @@
         <v-list
             class="pa-0"
         >
-            <v-list-item-group 
+            <v-list-item-group
                 light
                 color="#4a47d6">
-                <template   
+                <template
                     v-for="item in items">
                     <v-list-group
                         :key="item.title"
@@ -34,7 +34,7 @@
                             :key="program.name"
                             ripple
                             link
-                            router 
+                            router
                             :to="program.link"
                         >
                             <v-list-item-content>
@@ -48,7 +48,7 @@
                         link
                         ripple
                         class="my-2"
-                        router 
+                        router
                         :to="item.link"
                     >
                         <v-list-item-icon>
@@ -89,6 +89,6 @@ export default {
 <style scoped>
 
 #divider{
-  border: 0.5px solid #F2F2F2; 
+  border: 0.5px solid #F2F2F2;
 }
 </style>
