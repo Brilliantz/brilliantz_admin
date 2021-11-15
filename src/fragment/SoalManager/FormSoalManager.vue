@@ -18,35 +18,35 @@
             <v-text-field
               outlined
               label="Opsi Jawaban A"
-              :value="soal.a"
+              v-model="soal.a"
               prepend-inner-icon="A"
             ></v-text-field>
             <p class="text-grey">Opsi jawaban B</p>
             <v-text-field
               outlined
               label="Opsi Jawaban B"
-              :value="soal.b"
+              v-model="soal.b"
               prepend-inner-icon="B"
             ></v-text-field>
             <p class="text-grey">Opsi jawaban C</p>
             <v-text-field
               outlined
               label="Opsi Jawaban C"
-              :value="soal.c"
+              v-model="soal.c"
               prepend-inner-icon="C"
             ></v-text-field>
             <p class="text-grey">Opsi jawaban D</p>
             <v-text-field
               outlined
               label="Opsi Jawaban D"
-              :value="soal.d"
+              v-model="soal.d"
               prepend-inner-icon="D"
             ></v-text-field>
             <p class="text-grey">Opsi jawaban E</p>
             <v-text-field
               outlined
               label="Opsi Jawaban E"
-              :value="soal.e"
+              v-model="soal.e"
               prepend-inner-icon="E"
             ></v-text-field>
           </v-col>
@@ -73,6 +73,7 @@ import QuillEditorImage from "../../components/QuillEditor/QuilEditorImage";
 import db from "../../firebase/db";
 import storage from "../../firebase/storage";
 
+
 export default {
   name: "FormSoalManager",
   components: {QuillEditorCustom, QuillEditorImage},
@@ -80,12 +81,16 @@ export default {
     soal : {
       type: Object,
       required: true
+    },
+    isEditForm: {
+      type: Boolean,
+      required: true
     }
   },
   data: () => ({
     tryoutId: '',
     subbidangId: '',
-    nomorSoalNow: ''
+    nomorSoalNow: '',
   }),
   watch: {
     $route() {
@@ -101,76 +106,88 @@ export default {
     // await this.doWork()
   },
   methods: {
-    storage,
     syncImageSoal(image){
       this.soal.gambar_soal = image
-      //this.uploadImageToStorage(image)
+      //this.onHandlerImageUpload(image)
     },
     syncTextSoal(textSoal){
-      this.filtered_image_text(textSoal)
       this.soal.text_soal = textSoal.html
     },
-    async uploadImageToStorage(image){
-      const uploadTask = await this.storage
-        .ref(`tryout/${this.tryoutId}/${this.subbidangId}/${this.nomorSoalNow}/${image.name}`).put(image)
+
+    async onHandlerImageUpload(image = ''){
+      let imageLink = '';
+      if(image == '')
+        return  ''
+      const uploadTask = storage
+        .ref()
+        .child(`tryout/${this.tryoutId}/${this.subbidangId}/${this.nomorSoalNow}/${this.nomorSoalNow}`)
+        .put(image)
       uploadTask.on(
         "state_changed",
         (snapshot) => {
           // Observe state change events such as progress, pause, and resume
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log('Upload is ' + progress + '% done');
-          // switch (snapshot.state) {
-          //   case storage.TaskState.PAUSED: // or 'paused'
-          //     console.log('Upload is paused');
-          //     break;
-          //   case storage.TaskState.RUNNING: // or 'running'
-          //     console.log('Upload is running');
-          //     break;
-          // }
         }
         ,
         error => {
           console.log(error)
         },
         () => {
-          this.storage.ref()
-          .child(`tryout/${this.tryoutId}/${this.subbidangId}/${this.nomorSoalNow}/${image.name}`)
-          .getDownloadURL()
-          .then(url => {
-            console.log(url)
-          })
+          storage.ref()
+            .child(`tryout/${this.tryoutId}/${this.subbidangId}/${this.nomorSoalNow}/${this.nomorSoalNow}`)
+            .getDownloadURL()
+            .then(url => {
+              imageLink = url
+              this.soal.gambar_soal = imageLink
+              console.log( this.soal.gambar_soal)
+
+            })
         }
       )
-      console.log(image)
+      imageLink = await uploadTask
+      return imageLink
     },
-    filtered_image_text(text){
-      const regex = new RegExp('<' + 'img' + ' .*?' + 'src' + '="(.*?)"', "gi");
-      let res = []
-      let result
-      while ((result = regex.exec(text))) {
-        res.push(result[1]);
-      }
-      this.soal.gambar_soal = res[0]
-    },
-    async saveSoal(){
+    saveSoal(){
       //const response = await db.collection('tryout').doc(this.tryoutId).get().data()
-      const response = await db.collection('tryout').doc(this.tryoutId)
-        .collection(this.subbidangId).doc(this.nomorSoalNow).set({
-        gambar_soal: this.soal.gambar_soal || '',
-        text_soal : this.soal.text_soal,
-        nomor_soal : parseInt(this.nomorSoalNow),
-        a: this.soal.a,
-        b: this.soal.b,
-        c: this.soal.c,
-        d: this.soal.d,
-        e: this.soal.e,
+     this.onHandlerImageUpload(this.soal.gambar_soal)
+      .then(async (res) => {
+        await console.log(res)
+        console.log(db)
+        // if(this.isEditForm === true) {
+        //   const response = await db.collection('tryout').doc(this.tryoutId)
+        //     .collection(this.subbidangId).doc(this.soal.id).update({
+        //       gambar_soal: this.soal.gambar_soal || '',
+        //       text_soal : this.soal.text_soal,
+        //       nomor_soal : parseInt(this.nomorSoalNow),
+        //       a: this.soal.a,
+        //       b: this.soal.b,
+        //       c: this.soal.c,
+        //       d: this.soal.d,
+        //       e: this.soal.e,
+        //     })
+        //   console.log(response)
+        //   this.$store.dispatch('onNotificationSuccess', 'Success Edit Soal', { root: true})
+        // }
+        // else{
+        //   const response = await db.collection('tryout').doc(this.tryoutId)
+        //     .collection(this.subbidangId).add({
+        //       gambar_soal: this.soal.gambar_soal || '',
+        //       text_soal : this.soal.text_soal,
+        //       nomor_soal : parseInt(this.nomorSoalNow),
+        //       a: this.soal.a,
+        //       b: this.soal.b,
+        //       c: this.soal.c,
+        //       d: this.soal.d,
+        //       e: this.soal.e,
+        //     })
+        //   console.log(response)
+        //   this.$emit('changeIsEdit',true)
+        //   this.$store.dispatch('onNotificationSuccess', 'Success Save Soal', { root: true})
+        // }
       })
-      console.log(response)
-      console.log(this.nomorSoalNow)
-      console.log(this.tryoutId)
-      console.log(this.subbidangId)
-      this.$store.dispatch('onNotificationSuccess', 'Success Save Soal', { root: true})
+
     }
   }
 }

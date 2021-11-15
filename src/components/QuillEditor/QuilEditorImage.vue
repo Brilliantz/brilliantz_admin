@@ -5,13 +5,13 @@
       className="editor"
       v-model="content"
       :options="editorOption"
-      @change="onEditorChange"
     />
     <input type="file" id="getFile" @change="uploadImageToParent($event)" />
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   name: "QuilEditorImage",
   data: () => ({
@@ -35,10 +35,7 @@ export default {
     },
   }),
   methods: {
-    onEditorChange(val) {
-      this.$emit('syncImageSoal', val)
-    },
-    uploadImageToParent(e){
+    uploadImageToParent: _.throttle(function (e){
       this.content = e.target.files[0] != null
         ? e.target.files[0].name
         : 'Error mengupload gambar'
@@ -48,7 +45,7 @@ export default {
       //you can get images data in e.target.files
       //an single example for using formData to post to server
       //do your post
-    }
+    }, 1000)
   }
 }
 </script>

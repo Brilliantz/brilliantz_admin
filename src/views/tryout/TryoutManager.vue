@@ -284,7 +284,7 @@ export default {
         console.log('edit');
       },
       editSubbidang(subbidang) {
-          this.$router.push({ path: `/tryout/edit/${this.id}/${this.formatUrl(subbidang)}/2` })
+          this.$router.push({ path: `/tryout/edit/${this.id}/${this.formatUrl(subbidang)}/1` })
       },
       formatUrl(text) {
           return text.toLowerCase().replaceAll(" ", "_")

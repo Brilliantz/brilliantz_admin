@@ -11,6 +11,8 @@
         no-gutters
         class="ml-8 mt-3">
         <form-soal-manager
+          @changeIsEdit="changeIsEdit"
+          :isEditForm="isEdit"
           :soal="soal"
         />
         <nomor-soal-manager
@@ -32,6 +34,7 @@ export default {
     components: { Breadcrumb, FormSoalManager, NomorSoalManager},
     data() {
       return {
+        isEdit: false,
         tryoutId: '',
         subbidangId: '',
         nomorSoalNow: '',
@@ -54,9 +57,12 @@ export default {
       }
     },
     methods: {
-      async getCurrentSoal(){
+      changeIsEdit(status){
+        this.isEdit = status;
+      },
+      async getCurrentSoal(nomorSoal = parseInt(this.nomorSoalNow)){
         const defaultSoal = {
-          nomor_soal: this.nomorSoalNow,
+          nomor_soal: nomorSoal,
           text_soal: '',
           gambar_soal: '',
           a: '',
@@ -74,8 +80,8 @@ export default {
               ...doc.data()
             })
           })
-          const soalTryoutNow = this.allSoalFirebase.find( soal => soal.nomor_soal == parseInt(this.nomorSoalNow))
-          console.log(soalTryoutNow)
+          const soalTryoutNow = this.allSoalFirebase.find( soal => soal.nomor_soal === parseInt(nomorSoal))
+          this.isEdit = soalTryoutNow != undefined ? true : false
           this.soal = soalTryoutNow != undefined
             ? {...soalTryoutNow}
             : {...defaultSoal}
@@ -87,9 +93,7 @@ export default {
         //   .doc(this.tryoutId).collection(this.subbidangId)
         //   .doc(`${nomorSoal}`)
         //   .get()
-        console.log(typeof nomorSoal)
-        console.log(nomorSoal)
-        this.getCurrentSoal().then(() => {
+        this.getCurrentSoal(nomorSoal).then(() => {
           this.$router.push({ path: `/tryout/edit/${this.tryoutId}/${this.subbidangId}/${parseInt(nomorSoal)}` })
         })
       },
@@ -114,7 +118,7 @@ export default {
       this.tryoutId = this.$route.params.tryoutid
       this.subbidangId = this.$route.params.subbidang
       this.nomorSoalNow = this.$route.params.no
-      //await this.getCurrentSoal()
+      await this.getCurrentSoal()
       // await this.doWork()
     }
 }

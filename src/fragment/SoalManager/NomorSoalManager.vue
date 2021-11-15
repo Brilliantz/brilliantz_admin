@@ -21,9 +21,8 @@
 
                 <div class="d-flex justify-center">
                   <v-btn
-                    v-if="nomor_soal === count"
+                    v-if="nomor_soal-1 === count"
                     class="px-0 py-0 my-purple"
-                    @click="change_soal(count+1)"
                     fab
                     dark
                     small
@@ -55,6 +54,13 @@
               >
                 <div class="d-flex justify-center">
                   <v-btn
+                    v-if="nomor_soal===1"
+                    text
+                    disabled
+                    outlined
+                  >Sebelumnya</v-btn>
+                  <v-btn
+                    v-else
                     text
                     class="my-purple"
                     @click="soal_sebelumnya"
@@ -68,8 +74,17 @@
               >
                 <div class="d-flex justify-center">
                   <v-btn
+                    v-if="nomor_soal===20"
+                    text
+                    disabled
+                    outlined
+                    @click="soal_selanjutnya"
+                  >Selanjutnya</v-btn>
+                  <v-btn
+                    v-else
                     text
                     class="my-purple"
+                    :disabled="nomor_soal === 20"
                     @click="soal_selanjutnya"
                   >Selanjutnya</v-btn>
                 </div>
@@ -100,10 +115,10 @@ export default {
       this.$emit('refresh-soal', nomorSoal)
     },
     soal_sebelumnya(){
-
+      this.$emit('refresh-soal', this.nomor_soal-1)
     },
     soal_selanjutnya(){
-
+      this.$emit('refresh-soal', this.nomor_soal+1)
     }
   }
 }
