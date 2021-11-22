@@ -1,5 +1,6 @@
 import NProgress from 'nprogress/nprogress'
 //import store from '@/store'
+//import firebase from "../firebase/firebase";
 
 //const { getters } = store
 //const defaultRedirect = {name: 'dashboard'}
@@ -18,6 +19,20 @@ const progressStart = (to, from, next) => {
   }
   next()
 }
+
+// const firebaseLoginCheck = (to, from, next) => {
+//   if (to.matched.some(record => record.meta.auth)) {
+//     if (firebase.auth().currentUser) {
+//       next();
+//     } else {
+//       next({
+//         path: '/401',
+//       });
+//     }
+//   } else {
+//     next();
+//   }
+// }
 
 const checkRouteExist = (to, from, next) => {
   if (!to.matched.length) {

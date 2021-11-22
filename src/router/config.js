@@ -8,6 +8,14 @@ const options = {
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '401',
+      name: '401',
+      meta: {
+        auth: false
+      },
+      component: () => import('@/views/exception/401')
+    },
+    {
       path: '403',
       name: '403',
       meta: {

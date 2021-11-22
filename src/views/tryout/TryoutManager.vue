@@ -140,19 +140,24 @@
                   Batalkan
                 </v-btn>
                 <v-row v-if="is_edit" no-gutters class="mt-5">
-                  <v-col cols="3">
-                     <v-btn
-                      large
-                      depressed
-                      outlined
-                      color="red"
-                      class="text-none">
-                      Hapus Tryout
-                    </v-btn>
-                  </v-col>
-                  <v-col cols="6" class="ml-4">
-                    <p class="text-grey text-body-2">Dengan menekan tombol Hapus Tryout, Anda akan menghapus permanen program tersebut.</p>
-                  </v-col>
+                  <v-tooltip
+                    max-width="320px"
+                    right>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn
+                        large
+                        depressed
+                        outlined
+                        v-bind="attrs"
+                        v-on="on"
+                        color="red"
+                        @click="onDeleteTryout"
+                        class="text-none">
+                        Hapus Tryout
+                      </v-btn>
+                    </template>
+                    <span>Dengan menekan tombol Hapus Tryout, Anda akan menghapus permanen program tersebut.</span>
+                  </v-tooltip>
                 </v-row>
               </v-col>
             </v-row>
@@ -214,6 +219,17 @@ export default {
           this.is_edit = true
         }
         return path
+      },
+      onDeleteTryout(){
+        const response = new Promise((resolve, reject) => {
+          const data = db.collection("tryout").doc(this.$route.params.id).delete()
+          resolve(data)
+          reject(data)
+        })
+        response.then(() => {
+          this.$store.dispatch('onNotificationSuccess', 'Success Delete Tryout', { root: true})
+          this.$router.push({ path: `/tryout` })
+        })
       },
       populateData(data) {
           const dStart = new Date(data.waktu_mulai.seconds)
@@ -278,10 +294,30 @@ export default {
           waktu_akhir: firebase.firestore.Timestamp.fromMillis(dEnd.getTime()),
           harga: parseInt(this.harga)
         })
+        this.$store.dispatch('onNotificationSuccess', 'Success Add Tryout', { root: true})
         this.$router.push({ path: `/tryout/edit/${response.id}` })
       },
-      editTryout() {
+      async editTryout() {
+        const link = `https://brilliantz-edu.com/${this.formatUrl(this.nama_tryout)}`
+        const dateStartArr = this.dateStart.split('-').map(e => parseInt(e))
+        const timeStartArr = this.timeStart.split(':').map(e => parseInt(e))
+        const dateEndArr = this.dateEnd.split('-').map(e => parseInt(e))
+        const timeEndArr = this.timeEnd.split(':').map(e => parseInt(e))
+        const dStart = new Date(dateStartArr[0], dateStartArr[1] - 1, dateStartArr[2], timeStartArr[0], timeStartArr[1])
+        const dEnd = new Date(dateEndArr[0], dateEndArr[1] - 1, dateEndArr[2], timeEndArr[0], timeEndArr[1])
+        const response = await db.collection("tryout").doc(this.$route.params.id).update({
+          nama_tryout: this.nama_tryout,
+          bidang_tryout: this.bidang_tryout,
+          jenis_tryout: this.jenis_tryout,
+          poster_tryout: this.poster_tryout,
+          link_tryout: link,
+          waktu_mulai: firebase.firestore.Timestamp.fromMillis(dStart.getTime()),
+          waktu_akhir: firebase.firestore.Timestamp.fromMillis(dEnd.getTime()),
+          harga: parseInt(this.harga)
+        })
         console.log('edit');
+        this.$store.dispatch('onNotificationSuccess', 'Success Edit Tryout', { root: true})
+        console.log(response)
       },
       editSubbidang(subbidang) {
           this.$router.push({ path: `/tryout/edit/${this.id}/${this.formatUrl(subbidang)}/1` })

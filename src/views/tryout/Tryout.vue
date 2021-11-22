@@ -96,7 +96,7 @@
               text
               color="red"
               class="text-none"
-              @click="isShow = false"
+              @click="onDeleteTryout"
             >
               Hapus Tryout
             </v-btn>
@@ -110,6 +110,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import Breadcrumb from '../../components/Breadcrumb.vue';
 import DateAndCurrency from "../../mixins/DateAndCurrency";
+import db from "../../firebase/db";
 
 export default {
   components: { Breadcrumb },
@@ -144,6 +145,18 @@ export default {
     },
     methods: {
       ...mapActions('tryout', ['init']),
+      onDeleteTryout() {
+        const response = new Promise((resolve, reject) => {
+          const data = db.collection("tryout").doc(this.tryout_id).delete()
+          resolve(data)
+          reject(data)
+        })
+        response.then(() => {
+          this.$store.dispatch('onNotificationSuccess', 'Success Delete Tryout', { root: true})
+          this.init()
+        })
+        this.isShow = false
+      },
       viewItem(item){
         this.dialog = true;
         this.userToPopUp = item;

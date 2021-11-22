@@ -11,6 +11,7 @@
         no-gutters
         class="ml-8 mt-3">
         <form-soal-manager
+          ref="formSoalManager"
           @changeIsEdit="changeIsEdit"
           :isEditForm="isEdit"
           :soal="soal"
@@ -85,6 +86,7 @@ export default {
           this.soal = soalTryoutNow != undefined
             ? {...soalTryoutNow}
             : {...defaultSoal}
+          this.$refs.formSoalManager.resetEditorImageData()
         })
         return true
       },
@@ -94,6 +96,7 @@ export default {
         //   .doc(`${nomorSoal}`)
         //   .get()
         this.getCurrentSoal(nomorSoal).then(() => {
+          this.$refs.formSoalManager.resetEditorImageData()
           this.$router.push({ path: `/tryout/edit/${this.tryoutId}/${this.subbidangId}/${parseInt(nomorSoal)}` })
         })
       },
